@@ -3,33 +3,26 @@ $servername = 'localhost';
 $username = 'phpsamples';
 $password = 'phpsamples';
 $db = 'phpsamples';
-
 // Create connection
-$conn = mysqli_connect($servername, $username, $password,$db);
-mysqli_set_charset($conn,"utf8");
+$conn = mysqli_connect($servername, $username, $password, $db);
+mysqli_set_charset($conn, "utf8");
 // Check connection
 if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
-
-	$data1 = '';
-	$data2 = '';
-	$buildingName = '';
-
-	$query = "SELECT costs.cost_id, costs.building_id, buildings.building_name, costs.consumption_date, costs.gas_consumption, costs.gas_cost, costs.created_at, costs.updated_at FROM costs INNER JOIN buildings ON costs.building_id = buildings.building_id";
-	
-    $runQuery = mysqli_query($conn, $query);
-
-	while ($row = mysqli_fetch_array($runQuery)) {
-
-		$data1 = $data1 . '"'. $row['gas_consumption'].'",';
-		$data2 = $data2 . '"'. $row['gas_cost'] .'",';
-		$buildingName = $buildingName . '"'. ucwords($row['building_name']) .'",';
-	}
-
-	$data1 = trim($data1,",");
-	$data2 = trim($data2,",");
-	$buildingName = trim($buildingName,",");
+$data1 = '';
+$data2 = '';
+$buildingName = '';
+$query = "SELECT costs.cost_id, costs.building_id, buildings.building_name, costs.consumption_date, costs.gas_consumption, costs.gas_cost, costs.created_at, costs.updated_at FROM costs INNER JOIN buildings ON costs.building_id = buildings.building_id";
+$runQuery = mysqli_query($conn, $query);
+while ($row = mysqli_fetch_array($runQuery)) {
+    $data1 = $data1 . '"' . $row['gas_consumption'] . '",';
+    $data2 = $data2 . '"' . $row['gas_cost'] . '",';
+    $buildingName = $buildingName . '"' . ucwords($row['building_name']) . '",';
+}
+$data1 = trim($data1, ",");
+$data2 = trim($data2, ",");
+$buildingName = trim($buildingName, ",");
 ?>
 
 <!DOCTYPE html>
